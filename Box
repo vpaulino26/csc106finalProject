@@ -1,4 +1,51 @@
-
+//vic's bitmoji
+var drawHead = function(bitmojiX,bitmojiY,height)
+{
+    strokeWeight(1);
+    fill(235, 197, 170);
+    ellipse(bitmojiX + (height/84*82), bitmojiY + (height/84*86), height/84*72, height/84*84); //head
+    fill(255, 255, 255);
+    ellipse(bitmojiX + (height/84*65), bitmojiY + (height/84*78), height/84*9, height/84*16); //left eye
+    ellipse(bitmojiX + (height/84*97), bitmojiY + (height/84*78), height/84*9, height/84*16); //right eye
+    fill(112, 84, 84);
+    ellipse(bitmojiX + (height/84*65), bitmojiY + (height/84*76), height/84*3, height/84*10); //left eyeball
+    ellipse(bitmojiX + (height/84*97), bitmojiY + (height/84*76), height/84*3, height/84*10); //right eyeball
+    fill(41, 31, 19);
+    triangle(bitmojiX + (height/84*41), bitmojiY + (height/84*55), bitmojiX + (height/84*87), bitmojiY + (height/84*48), bitmojiX + (height/84*41), bitmojiY + (height/84*77));//left hair
+    triangle(bitmojiX + (height/84*122), bitmojiY + (height/84*55), bitmojiX + (height/84*87), bitmojiY + (height/84*48), bitmojiX + (height/84*123), bitmojiY + (height/84*81));//right hair
+    fill(43, 214, 240);
+    bezier(bitmojiX + (height/84*47), bitmojiY + (height/84*33), bitmojiX + (height/84*11), bitmojiY + (height/84*89), bitmojiX + (height/84*218), bitmojiY + (height/84*57), bitmojiX + (height/84*89), bitmojiY + (height/84*42));//hat
+    fill(156, 34, 34);
+    ellipse(bitmojiX + (height/84*82), bitmojiY + (height/84*110), height/84*15, height/84*18);//mouth
+    line(bitmojiX + (height/84*70), bitmojiY + (height/84*93), bitmojiX + (height/84*82), bitmojiY + (height/84*86));//nose-1
+    line(bitmojiX + (height/84*70), bitmojiY + (height/84*93), bitmojiX + (height/84*82), bitmojiY + (height/84*93));//nose-2
+    line(bitmojiX + (height/84*71), bitmojiY + (height/84*103), bitmojiX + (height/84*80), bitmojiY + (height/84*98));//stache-1
+    line(bitmojiX + (height/84*92), bitmojiY + (height/84*103), bitmojiX + (height/84*84), bitmojiY + (height/84*98));//stache-2
+};
+var drawBody = function(bitmojiX,bitmojiY,height)
+{
+    fill(230, 227, 227);
+    quad(bitmojiX + (height/84*10), bitmojiY + (height/84*164), bitmojiX + (height/84*160), bitmojiY + (height/84*164), bitmojiX + (height/84*120), bitmojiY + (height/84*110), bitmojiX + (height/84*44), bitmojiY + (height/84*110)); //shirt
+    fill(69, 62, 62);
+    arc(bitmojiX + (height/84*82), bitmojiY + (height/84*119), height/84*70, height/84*33, height/84*-26, 214);//collar
+    noFill();
+    strokeWeight(2);
+    stroke(125, 125, 120);
+    arc(bitmojiX + (height/84*82), bitmojiY + (height/84*112), height/84*49, height/84*91, height/84*0, 180);//necklace
+    strokeWeight(1);
+    stroke(0, 0, 0);
+    strokeWeight(2);
+    line(bitmojiX + (height/84*57), bitmojiY + (height/84*138), bitmojiX + (height/84*70), bitmojiY + (height/84*162));//v-1
+    line(bitmojiX + (height/84*81), bitmojiY + (height/84*138), bitmojiX + (height/84*70), bitmojiY + (height/84*162));//v-2
+    line(bitmojiX + (height/84*94), bitmojiY + (height/84*138), bitmojiX + (height/84*94), bitmojiY + (height/84*162));//p-1
+    noFill();
+    arc(bitmojiX + (height/84*95), bitmojiY + (height/84*146), height/84*20, height/84*15, height/84*-90, 90);//p-2
+    };
+var drawBitmoji = function(bitmojiX,bitmojiY,height)
+{
+    drawBody(bitmojiX,bitmojiY, height);
+    drawHead(bitmojiX,bitmojiY, height);
+};
 /*
 fill(143, 143, 143);
 rect(200,200,79,50);
@@ -26,85 +73,16 @@ for(var i = 0; i < 7;i++)
     {
      line(210+i*10,284,210+i*10,150);   
     }
-
-
 */
-
-
-var words = function(x,y,h)
-{
+//score global variable
+var score = 6;
+draw = function() {
     fill(255, 255, 255);
-    textSize(40*h);
-    text("ARL",x+44*h,y+131*h);
+    rect(240,368,152,33);
+    fill(0, 0, 0);
+textSize(15);
+text("Boxes Eliminated: " + score, 250, 380);
 };
-
-var body = function(x,y,h)
-{
-    fill(0, 34, 102);
-    rect(x+31*h,y+130*h,100*h,51*h);//body
-};
-
-
-var head = function(x,y,h)
-{
-    fill(232, 190, 172);//skin color
-    ellipse(x+80*h,y+90*h,76*h,86*h);//head in total
-
-};
-
-var hat = function(x,y,h)
-{
-    fill(0, 0, 0);//rest of hat
-    arc(x+80*h,y+73*h,66*h,-54*h,2*h,177);//top of hat
-    fill(66, 26, 26);//collor of back of hat
-    arc(x+82*h,y+71*h,29*h,-18*h,2*h,177);//hole in back of hat
-
-};
-
-
-var eyes = function(x,y,h)
-{
-    
-    fill(255, 255, 255);//white in eyes
-    ellipse(x+67*h,y+86*h,10*h,10*h);//left eye
-    ellipse(x+93*h,y+86*h,10*h,10*h);//right eye
-    fill(102, 59, 59);//brown eyes
-    ellipse(x+67*h,y+86*h,5*h,6*h);//left brown eyes
-    ellipse(x+93*h,y+86*h,5*h,6*h);//right brown eyes
-    fill(0, 0, 0);//pupil 
-    ellipse(x+67*h,y+86*h,3*h,3*h);//left eye pupil
-    ellipse(x+93*h,y+86*h,3*h,3*h);// right eye pupil
-
-};
-
-var glasses = function(x,y,h)
-{
-    fill(232, 190, 172);
-    rect(x+56*h,y+78*h,20*h,15*h);// left glasses
-    rect(x+82*h,y+78*h,20*h,15*h);//right glasses
-    line(x+76*h,y+86*h,x+82*h,y+86*h);//line connecting glasses
-};
-
-var mouth = function(x,y,h)
-{
-    fill(255, 255, 255);// smile
-    arc(x+81*h,y+108*h, 24*h, 20*h, -5,180);//mouth
-
-};
-
-var drawbitmoji = function (x,y,h)
-{
-    var p = h/100;
-    head(x, y, p);
-    hat(x, y, p);
-    glasses(x, y, p);
-    eyes(x, y, p);
-    mouth(x, y, p);
-    body(x, y, p);
-    words(x, y, p);
-};
-
-
 var money = [1,10,20,40,50,60,80,100,200,250,300,350,400,450,500,550,1000,1500,5000,5500,10000,10500,50000,100000,500000,1000000];
 
 var total = 0;
@@ -150,7 +128,7 @@ Button.prototype.draw = function() {
             rect(this.x+20,this.y+15,40,20);
             fill(255,255,255);
             text(this.NumBox,this.x+33,this.y+13);
-            textSize(21);
+            
             
 
         }
@@ -192,6 +170,8 @@ var box1 = new Button ({
         fill(255, 255, 255);
         text(box1.mon,4,161,79,50);
         total -= box1.mon;
+        score-=1;
+        
     }
 });
 
