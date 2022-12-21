@@ -148,7 +148,7 @@ for(var i = 0; i < 7;i++)
     }
 */
 //score global variable
-var score = 6;
+var score = 26;
 var boxMoney = [];
 var currentScene = 0;
 var total = 0;
@@ -157,12 +157,14 @@ var shifter = 0;
 var animate = 0;
 var vicMoves = 0;
 var drewMoves = 0;
+var roundCounter = 0;
+var j = 0;
 
 
 
 
 
-var money = [0,1,10,20,40,50,60,80,100,200,250,300,350,400,450,500,550,1000,1500,5000,5500,10000,10500,50000,100000,500000,1000000];
+var money = [0,1,10,20,40,50,60,80,100,200,250,300,350,400,450,500,550,1000,1500,5000,5500,10000,10500,50000,900000,500000,1000000];
 
 
 //randomizes the order of the mpney in the boxes
@@ -282,8 +284,8 @@ Button.prototype.handleMouseClick = function() {
 //println(total);
 
 var startGame = new Button ({
-    x: 140,
-    y: 300,
+    x: 247,
+    y: 260,
     color: color(255, 221, 0),
     label: "Start Game",
     width: 117,
@@ -298,6 +300,7 @@ var startBox = new Button ({
     box:true,
     NumBox: "??",
 });
+    
 var deal = new Button ({
     x: 65,
     y: 300,
@@ -306,9 +309,9 @@ var deal = new Button ({
     width: 95,
     onClick: function() {
         currentScene = 3;
+        shifter = 2;
     }
 });
-
 var noDeal = new Button ({
     x: 228,
     y: 300,
@@ -318,6 +321,8 @@ var noDeal = new Button ({
     onClick: function() {
         currentScene = 1;  
         shifter = 1;
+        roundCounter++;
+        j++;
     }
 });
 
@@ -331,13 +336,8 @@ var box1 = new Button ({
     NumBox: 1,
     mon: boxMoney[0],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box1.x,box1.y,79,40);
-        fill(255, 255, 255);
-        text(box1.mon,box1.x,box1.y+11,79,50);
-        total -= boxMoney[box1.NumBox-1];
-        score-=1;
-        
+        box1.x = 4000;
+        score -= 1;
     }
 });
 
@@ -349,12 +349,8 @@ var box2 = new Button ({
     NumBox: 2,
     mon: boxMoney[1],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box2.x,box2.y,79,40);
-        fill(255, 255, 255);
-        text(box2.mon,box2.x,box2.y+11,79,50);
-        total -= boxMoney[box2.NumBox-1];
-        score-=1;
+        box2.x = 4000;
+        score -= 1;
         
     }
 });
@@ -367,12 +363,8 @@ var box3 = new Button ({
     NumBox: 3,
     mon: boxMoney[2],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box3.x,box3.y,79,40);
-        fill(255, 255, 255);
-        text(box3.mon,box3.x,box3.y+11,79,50);
-        total -= boxMoney[box3.NumBox-1];
-        score-=1;
+        box3.x = 4000;
+        score -= 1;
         
     }
 });
@@ -385,12 +377,8 @@ var box4 = new Button ({
     NumBox: 4,
     mon: boxMoney[3],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box4.x,box4.y,79,40);
-        fill(255, 255, 255);
-        text(box4.mon,box4.x,box4.y+11,79,50);
-        total -= boxMoney[box4.NumBox-1];
-        score-=1;
+        box4.x = 4000;
+        score -= 1;
         
     }
 });
@@ -403,12 +391,8 @@ var box5 = new Button ({
     NumBox: 5,
     mon: boxMoney[4],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box5.x,box5.y,79,40);
-        fill(255, 255, 255);
-        text(box5.mon,box5.x,box5.y+11,79,50);
-        total -= boxMoney[box5.NumBox-1];
-        score-=1;
+        box5.x = 4000;
+        score -= 1;
         
     }
 });
@@ -421,12 +405,8 @@ var box6 = new Button ({
     NumBox: 6,
     mon: boxMoney[5],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box6.x,box6.y,79,40);
-        fill(255, 255, 255);
-        text(box6.mon,box6.x,box6.y+11,79,50);
-        total -= boxMoney[box6.NumBox-1];
-        score-=1;
+        box6.x = 4000;
+        score -= 1;
         
     }
 });
@@ -439,12 +419,8 @@ var box7 = new Button ({
     NumBox: 7,
     mon: boxMoney[6],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box7.x,box7.y,79,40);
-        fill(255, 255, 255);
-        text(box7.mon,box7.x,box7.y+11,79,50);
-        total -= boxMoney[box7.NumBox-1];
-        score-=1;
+        box7.x = 4000;
+        score -= 1;
         
     }
 });
@@ -457,12 +433,8 @@ var box8 = new Button ({
     NumBox: 8,
     mon: boxMoney[7],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box8.x,box8.y,79,40);
-        fill(255, 255, 255);
-        text(box8.mon,box8.x,box8.y+11,79,50);
-        total -= boxMoney[box8.NumBox-1];
-        score-=1;
+        box8.x = 4000;
+        score -= 1;
         
     }
 });
@@ -475,12 +447,8 @@ var box9 = new Button ({
     NumBox: 9,
     mon: boxMoney[8],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box9.x,box9.y,79,40);
-        fill(255, 255, 255);
-        text(box9.mon,box9.x,box9.y+11,79,50);
-        total -= boxMoney[box9.NumBox-1];
-        score-=1;
+        box9.x = 4000;
+        score -= 1;
         
     }
 });
@@ -493,12 +461,8 @@ var box10 = new Button ({
     NumBox: 10,
     mon: boxMoney[9],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box10.x,box10.y,79,40);
-        fill(255, 255, 255);
-        text(box10.mon,box10.x,box10.y+11,79,50);
-        total -= boxMoney[box10.NumBox-1];
-        score-=1;
+        box10.x = 4000;
+        score -= 1;
         
     }
 });
@@ -511,12 +475,8 @@ var box11 = new Button ({
     NumBox: 11,
     mon: boxMoney[10],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box11.x,box11.y,79,40);
-        fill(255, 255, 255);
-        text(box11.mon,box11.x,box11.y+11,79,50);
-        total -= boxMoney[box11.NumBox-1];
-        score-=1;
+        box11.x = 4000;
+        score -= 1;
         
     }
 });
@@ -529,12 +489,8 @@ var box12 = new Button ({
     NumBox: 12,
     mon: boxMoney[11],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box12.x,box12.y,79,40);
-        fill(255, 255, 255);
-        text(box12.mon,box12.x,box12.y+11,79,50);
-        total -= boxMoney[box12.NumBox-1];
-        score-=1;
+        box12.x = 4000;
+        score -= 1;
         
     }
 });
@@ -547,12 +503,8 @@ var box13 = new Button ({
     NumBox: 13,
     mon: boxMoney[12],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box13.x,box13.y,79,40);
-        fill(255, 255, 255);
-        text(box13.mon,box13.x,box13.y+11,79,50);
-        total -= boxMoney[box13.NumBox-1];
-        score-=1;
+        box13.x = 4000;
+        score -= 1;
         
     }
 });
@@ -565,12 +517,8 @@ var box14 = new Button ({
     NumBox: 14,
     mon: boxMoney[13],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box14.x,box14.y,79,40);
-        fill(255, 255, 255);
-        text(box14.mon,box14.x,box14.y+11,79,50);
-        total -= boxMoney[box14.NumBox-1];
-        score-=1;
+        box14.x = 4000;
+        score -= 1;
         
     }
 });
@@ -583,12 +531,8 @@ var box15 = new Button ({
     NumBox: 15,
     mon: boxMoney[14],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box15.x,box15.y,79,40);
-        fill(255, 255, 255);
-        text(box15.mon,box15.x,box15.y+11,79,50);
-        total -= boxMoney[box15.NumBox-1];
-        score-=1;
+        box15.x = 4000;
+        score -= 1;
         
     }
 });
@@ -601,12 +545,8 @@ var box16 = new Button ({
     NumBox: 16,
     mon: boxMoney[15],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box16.x,box16.y,79,40);
-        fill(255, 255, 255);
-        text(box16.mon,box16.x,box16.y+11,79,50);
-        total -= boxMoney[box16.NumBox-1];
-        score-=1;
+        box16.x = 4000;
+        score -= 1;
         
     }
 });
@@ -619,12 +559,8 @@ var box17 = new Button ({
     NumBox: 17,
     mon: boxMoney[16],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box17.x,box17.y,79,40);
-        fill(255, 255, 255);
-        text(box17.mon,box17.x,box17.y+11,79,50);
-        total -= boxMoney[box17.NumBox-1];
-        score-=1;
+        box17.x = 4000;
+        score -= 1;
         
     }
 });
@@ -637,12 +573,8 @@ var box18 = new Button ({
     NumBox: 18,
     mon: boxMoney[17],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box18.x,box18.y,79,40);
-        fill(255, 255, 255);
-        text(box18.mon,box18.x,box18.y+11,79,50);
-        total -= boxMoney[box18.NumBox-1];
-        score-=1;
+        box18.x = 4000;
+        score -= 1;
         
     }
 });
@@ -655,12 +587,8 @@ var box19 = new Button ({
     NumBox: 19,
     mon: boxMoney[18],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box19.x,box19.y,79,40);
-        fill(255, 255, 255);
-        text(box19.mon,box19.x,box19.y+11,79,50);
-        total -= boxMoney[box19.NumBox-1];
-        score-=1;
+        box19.x = 4000;
+        score -= 1;
         
     }
 });
@@ -673,12 +601,8 @@ var box20 = new Button ({
     NumBox: 20,
     mon: boxMoney[19],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box20.x,box20.y,79,40);
-        fill(255, 255, 255);
-        text(box20.mon,box20.x,box20.y+11,79,50);
-        total -= boxMoney[box20.NumBox-1];
-        score-=1;
+        box20.x = 4000;
+        score -= 1;
         
     }
 });
@@ -691,13 +615,8 @@ var box21 = new Button ({
     NumBox: 21,
     mon: boxMoney[20],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box21.x,box21.y,79,40);
-        fill(255, 255, 255);
-        text(box21.mon,box21.x,box21.y+11,79,50);
-        total -= boxMoney[box21.NumBox-1];
-        score-=1;
-        
+        box21.x = 4000;
+        score -= 1;
     }
 });
 
@@ -709,12 +628,8 @@ var box22 = new Button ({
     NumBox: 22,
     mon: boxMoney[21],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box22.x,box22.y,79,40);
-        fill(255, 255, 255);
-        text(box22.mon,box22.x,box22.y+11,79,50);
-        total -= boxMoney[box22.NumBox-1];
-        score-=1;
+        box22.x = 4000;
+        score -= 1;
         
     }
 });
@@ -727,12 +642,8 @@ var box23 = new Button ({
     NumBox: 23,
     mon: boxMoney[22],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box23.x,box23.y,79,40);
-        fill(255, 255, 255);
-        text(box23.mon,box23.x,box23.y+11,79,50);
-        total -= boxMoney[box23.NumBox-1];
-        score-=1;
+        box23.x = 4000;
+        score -= 1;
         
     }
 });
@@ -745,12 +656,8 @@ var box24 = new Button ({
     NumBox: 24,
     mon: boxMoney[23],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box24.x,box24.y,79,40);
-        fill(255, 255, 255);
-        text(box24.mon,box24.x,box24.y+11,79,50);
-        total -= boxMoney[box24.NumBox-1];
-        score-=1;
+        box24.x = 4000;
+        score -= 1;
         
     }
 });
@@ -764,12 +671,8 @@ var box25 = new Button ({
     NumBox: 25,
     mon: boxMoney[24],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box25.x,box25.y,79,40);
-        fill(255, 255, 255);
-        text(box25.mon,box25.x,box25.y+11,79,39);
-        total -= boxMoney[box25.NumBox-1];
-        score-=1;
+        box25.x = 4000;
+        score -= 1;
         
     }
 });
@@ -782,20 +685,16 @@ var box26 = new Button ({
     NumBox: 26,
     mon: boxMoney[25],
     onClick: function() {
-        fill(0, 0, 0);
-        rect(box26.x,box26.y,79,40);
-        fill(255, 255, 255);
-        text(box26.mon,box26.x,box26.y+11,79,50);
-        total -= boxMoney[box26.NumBox-1];
-        score-=1;
+        box26.x = 4000;
+        score -= 1;
         
     }
 });
 
 
-
-
 mouseClicked = function() {
+    noDeal.handleMouseClick();
+    deal.handleMouseClick();
     startGame.handleMouseClick();
     box1.handleMouseClick();
     box2.handleMouseClick();
@@ -829,6 +728,7 @@ mouseClicked = function() {
 
 
 var main = function(){
+    strokeWeight(2);
     background(0, 123, 255);
     box1.draw();
     box2.draw();
@@ -861,18 +761,19 @@ var main = function(){
 
 var winningScreen = function(){
     background(0, 149, 255);
-    textSize(26);
-    text("Congratulation you won $" + total ,8,88);
-    textSize(20);
-    text("Hope to see you in the CS feild one day! :)" ,8,153);
-    textSize(16);
-    text("but until then enjoy the money and thanks for playing!", 8, 224);
+    textSize(24);
+    text("Congratulations you won $" + total ,10,88);
+    textSize(18);
+    text("Hope to see you in the CS field one day! :)" ,10,130);
+    textSize(14);
+    text("but until then enjoy the money and thanks for playing!", 10, 165);
     drawbitmoji(11,239,74);
-    strokeWeight(7);
+    strokeWeight(1);
     stroke(255,255,255);
     line(64,320,189,234);
     noFill();
-    rect(8,54,385,178);
+    rect(8,70,385,178);
+    stroke(0, 0, 0);
 
 };
 //winningScreen();
@@ -883,34 +784,39 @@ var banker = function(){
     textSize(24);
     fill(255, 208, 0);
     var bank = [];
-    var j = 0;
-    for (var i = 5; i > 0; i--){
+    for (var i = 6; i > 0; i--){
         bank.push(round(total/i));
     }
-/*
+
     println(total);
     println(bank[0]);
     println(bank[1]);
     println(bank[2]);
     println(bank[3]);
     println(bank[4]);
-*/
-    
-    var deal = new Button ({
-    x: 65,
-    y: 300,
-    color: color(255, 208, 0),
-    label: "Deal",
-    width: 95,
-    onClick: function() {
-        currentScene = 3;
-        total = bank[j];
-    }
-});
 
 
     text("The Banker wants to make and offer",2,49); 
-    text("The offer is $" + round(bank[j]),87,132);  
+    if (roundCounter === 0){
+        
+        text("The offer is $" + bank[0],87,112);  
+    }
+    if (roundCounter === 1){
+        
+        text("The offer is $" + bank[1],87,112);  
+    }
+    if (roundCounter === 2){
+        
+        text("The offer is $" + bank[2],87,112);  
+    }
+    if (roundCounter === 3){
+        
+        text("The offer is $" + bank[3],87,112);  
+    }
+    if (roundCounter === 4){
+        
+        text("The offer is $" + bank[4],87,112);  
+    }
     deal.draw();
     noDeal.draw();
     drawBitmoji(26,149,60);
@@ -919,26 +825,13 @@ var banker = function(){
     line(85,228,186,150);
     noFill();
     rect(81,99,230,50);
-    if (shifter === 1)
-    {
-        j += 1;
-        shifter = 0;
-    }
-    else
-    {
-        total = bank[j];
-    }
     
+    stroke(0, 0, 0);
     
 };
-banker();
+//banker();
 
 draw = function() {
-    fill(255, 255, 255);
-    rect(240,368,152,33);
-    fill(0, 0, 0);
-textSize(15);
-text("Boxes Eliminated: " + score, 250, 380);
 if (currentScene === 0) {
         animate++;
         vicMoves = vicMoves +2;
@@ -970,5 +863,34 @@ if (currentScene === 0) {
     }
     else if (currentScene === 1) {
         main();
+        fill(255, 255, 255);
+        rect(240,368,152,33);
+        fill(0, 0, 0);
+        textSize(15);
+        text("Boxes Left: " + score, 250, 380);
+        if (score === 20 && roundCounter === 0) {
+            currentScene = 2;
+        }
+        else if (score === 15 && roundCounter === 1) {
+            currentScene = 2;
+        }
+        else if (score === 10 && roundCounter === 2) {
+            currentScene = 2;
+        }
+        else if (score === 6 && roundCounter === 3) {
+            currentScene = 2;
+        }
+        else if (score === 2 && roundCounter === 4) {
+            currentScene = 2;
+        }
+        else if (score === 1 && roundCounter === 4) {
+            currentScene = 3;
+        }
+    }
+    else if (currentScene === 2) {
+        banker();
+    }
+    else if (currentScene === 3) {
+        winningScreen();
     }
 };
