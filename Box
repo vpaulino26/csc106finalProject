@@ -46,6 +46,79 @@ var drawBitmoji = function(bitmojiX,bitmojiY,height)
     drawBody(bitmojiX,bitmojiY, height);
     drawHead(bitmojiX,bitmojiY, height);
 };
+//Andrew's Bitmoji
+var words = function(x,y,h)
+{
+    fill(255, 255, 255);
+    textSize(40*h);
+    text("ARL",x+44*h,y+136*h);
+};
+
+var body = function(x,y,h)
+{
+    fill(0, 34, 102);
+    rect(x+31*h,y+130*h,100*h,51*h);//body
+};
+
+
+var head = function(x,y,h)
+{
+    fill(232, 190, 172);//skin color
+    ellipse(x+80*h,y+90*h,76*h,86*h);//head in total
+
+};
+
+var hat = function(x,y,h)
+{
+    fill(0, 0, 0);//rest of hat
+    arc(x+80*h,y+73*h,66*h,-54*h,2*h,177);//top of hat
+    fill(66, 26, 26);//collor of back of hat
+    arc(x+82*h,y+71*h,29*h,-18*h,2*h,177);//hole in back of hat
+
+};
+
+
+var eyes = function(x,y,h)
+{
+    
+    fill(255, 255, 255);//white in eyes
+    ellipse(x+67*h,y+86*h,10*h,10*h);//left eye
+    ellipse(x+93*h,y+86*h,10*h,10*h);//right eye
+    fill(102, 59, 59);//brown eyes
+    ellipse(x+67*h,y+86*h,5*h,6*h);//left brown eyes
+    ellipse(x+93*h,y+86*h,5*h,6*h);//right brown eyes
+    fill(0, 0, 0);//pupil 
+    ellipse(x+67*h,y+86*h,3*h,3*h);//left eye pupil
+    ellipse(x+93*h,y+86*h,3*h,3*h);// right eye pupil
+
+};
+
+var glasses = function(x,y,h)
+{
+    fill(232, 190, 172);
+    rect(x+56*h,y+78*h,20*h,15*h);// left glasses
+    rect(x+82*h,y+78*h,20*h,15*h);//right glasses
+    line(x+76*h,y+86*h,x+82*h,y+86*h);//line connecting glasses
+};
+
+var mouth = function(x,y,h)
+{
+    fill(255, 255, 255);// smile
+    arc(x+81*h,y+108*h, 24*h, 20*h, -5,180);//mouth
+
+};
+
+var drawbitmoji = function (x,y,h)
+{
+    var p = h/100;
+    head(x, y, p);
+    hat(x, y, p);
+    glasses(x, y, p);
+    eyes(x, y, p);
+    mouth(x, y, p);
+    body(x, y, p);
+    words(x, y, p);
+};
 /*
 fill(143, 143, 143);
 rect(200,200,79,50);
@@ -76,25 +149,70 @@ for(var i = 0; i < 7;i++)
 */
 //score global variable
 var score = 6;
-draw = function() {
-    fill(255, 255, 255);
-    rect(240,368,152,33);
-    fill(0, 0, 0);
-textSize(15);
-text("Boxes Eliminated: " + score, 250, 380);
-};
-var money = [1,10,20,40,50,60,80,100,200,250,300,350,400,450,500,550,1000,1500,5000,5500,10000,10500,50000,100000,500000,1000000];
-
+var boxMoney = [];
+var currentScene = 0;
 var total = 0;
+var holder = 0;
+var shifter = 0;
+var animate = 0;
+var vicMoves = 0;
+var drewMoves = 0;
+
+
+
+
+
+var money = [0,1,10,20,40,50,60,80,100,200,250,300,350,400,450,500,550,1000,1500,5000,5500,10000,10500,50000,100000,500000,1000000];
+
+
+//randomizes the order of the mpney in the boxes
+for (var j = 0; j < money.length; j++)
+{
+
+        holder = round(random(1,27));
+        if (money[holder] === 0)
+        {
+            while (money[holder] === 0)
+            {
+                if (holder === 27)
+                    {
+                        holder = 1;
+                    }
+                else
+                {
+                    holder += 1;
+                }
+            }
+        }
+    else if (money[holder] > 0)
+    {
+        boxMoney.push(money[holder]);
+        money[holder] = 0;
+    }
+
+
+}
+
+for(var c = 0; c < money.length; c ++)
+{
+    if (money[c] > 0)
+        {
+            boxMoney.push(money[c]);
+            
+        }
+}
+
+
 
 for (var i = 0; i < money.length; i++)
 {
-    total += money[i];   
+    total += money[i]; 
+    
 }
 
-println(total);
+//println(total);
 
-println(money.length);
+//println(money.length);
 
 
 var Button = function(config) {
@@ -116,18 +234,18 @@ Button.prototype.draw = function() {
     if (this.box === true)
         {
             fill(143, 143, 143);
-            rect(this.x,this.y,79,50);
+            rect(this.x,this.y,79,41);
             rect(this.x+15,this.y-12,50,12);
-            fill(255, 255, 255);
+            fill(0, 123, 255);
             rect(this.x+24,this.y-7,33,7);
             fill(143, 143, 143);
             for(var i = 0; i < 7;i++)
                 {
-                 line(this.x+10+i*10,this.y+50,this.x+10+i*10,this.y);   
+                 line(this.x+10+i*10,this.y+40,this.x+10+i*10,this.y);   
                 }
-            rect(this.x+20,this.y+15,40,20);
+            rect(this.x+20,this.y+12,40,20);
             fill(255,255,255);
-            text(this.NumBox,this.x+33,this.y+13);
+            text(this.NumBox,this.x+33,this.y+12);
             
             
 
@@ -157,43 +275,700 @@ Button.prototype.handleMouseClick = function() {
         this.onClick();
     }
 };
-var box1 = new Button ({
-    x: 4,
-    y: 150,
-    width: 117,
-    box:true,
-    NumBox:1,
-    mon: money[round(random(0,26))],
-    onClick: function() {
-        fill(0, 0, 0);
-        rect(4,150,79,50);
-        fill(255, 255, 255);
-        text(box1.mon,4,161,79,50);
-        total -= box1.mon;
-        score-=1;
-        
-    }
-});
+//println(boxMoney);
 
-println(box1.mon);
-println(total);
+
+//println(box1.mon);
+//println(total);
 
 var startGame = new Button ({
-    x: 150,
+    x: 140,
     y: 300,
     color: color(255, 221, 0),
     label: "Start Game",
     width: 117,
     onClick: function() {
-        println("sup");
+        currentScene = 1;
+    }
+});
+var startBox = new Button ({
+    x: -4,
+    y: 235,
+    width: 117,
+    box:true,
+    NumBox: "??",
+});
+var deal = new Button ({
+    x: 65,
+    y: 300,
+    color: color(255, 208, 0),
+    label: "Deal",
+    width: 95,
+    onClick: function() {
+        currentScene = 3;
     }
 });
 
-startGame.draw();
-box1.draw();
+var noDeal = new Button ({
+    x: 228,
+    y: 300,
+    color: color(255, 208, 0),
+    label: "No Deal",
+    width: 95,
+    onClick: function() {
+        currentScene = 1;  
+        shifter = 1;
+    }
+});
+
+
+
+var box1 = new Button ({
+    x: 26,
+    y: 14,
+    width: 117,
+    box:true,
+    NumBox: 1,
+    mon: boxMoney[0],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box1.x,box1.y,79,40);
+        fill(255, 255, 255);
+        text(box1.mon,box1.x,box1.y+11,79,50);
+        total -= boxMoney[box1.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box2 = new Button ({
+    x: 117,
+    y: 14,
+    width: 117,
+    box:true,
+    NumBox: 2,
+    mon: boxMoney[1],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box2.x,box2.y,79,40);
+        fill(255, 255, 255);
+        text(box2.mon,box2.x,box2.y+11,79,50);
+        total -= boxMoney[box2.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box3 = new Button ({
+    x: 207,
+    y: 14,
+    width: 117,
+    box:true,
+    NumBox: 3,
+    mon: boxMoney[2],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box3.x,box3.y,79,40);
+        fill(255, 255, 255);
+        text(box3.mon,box3.x,box3.y+11,79,50);
+        total -= boxMoney[box3.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box4 = new Button ({
+    x: 298,
+    y: 14,
+    width: 117,
+    box:true,
+    NumBox: 4,
+    mon: boxMoney[3],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box4.x,box4.y,79,40);
+        fill(255, 255, 255);
+        text(box4.mon,box4.x,box4.y+11,79,50);
+        total -= boxMoney[box4.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box5 = new Button ({
+    x: 26,
+    y: 73,
+    width: 117,
+    box:true,
+    NumBox: 5,
+    mon: boxMoney[4],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box5.x,box5.y,79,40);
+        fill(255, 255, 255);
+        text(box5.mon,box5.x,box5.y+11,79,50);
+        total -= boxMoney[box5.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box6 = new Button ({
+    x: 117,
+    y: 73,
+    width: 117,
+    box:true,
+    NumBox: 6,
+    mon: boxMoney[5],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box6.x,box6.y,79,40);
+        fill(255, 255, 255);
+        text(box6.mon,box6.x,box6.y+11,79,50);
+        total -= boxMoney[box6.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box7 = new Button ({
+    x: 207,
+    y: 73,
+    width: 117,
+    box:true,
+    NumBox: 7,
+    mon: boxMoney[6],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box7.x,box7.y,79,40);
+        fill(255, 255, 255);
+        text(box7.mon,box7.x,box7.y+11,79,50);
+        total -= boxMoney[box7.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box8 = new Button ({
+    x: 298,
+    y: 73,
+    width: 117,
+    box:true,
+    NumBox: 8,
+    mon: boxMoney[7],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box8.x,box8.y,79,40);
+        fill(255, 255, 255);
+        text(box8.mon,box8.x,box8.y+11,79,50);
+        total -= boxMoney[box8.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box9 = new Button ({
+    x: 26,
+    y: 133,
+    width: 117,
+    box:true,
+    NumBox: 9,
+    mon: boxMoney[8],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box9.x,box9.y,79,40);
+        fill(255, 255, 255);
+        text(box9.mon,box9.x,box9.y+11,79,50);
+        total -= boxMoney[box9.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box10 = new Button ({
+    x: 117,
+    y: 133,
+    width: 117,
+    box:true,
+    NumBox: 10,
+    mon: boxMoney[9],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box10.x,box10.y,79,40);
+        fill(255, 255, 255);
+        text(box10.mon,box10.x,box10.y+11,79,50);
+        total -= boxMoney[box10.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box11 = new Button ({
+    x: 207,
+    y: 133,
+    width: 117,
+    box:true,
+    NumBox: 11,
+    mon: boxMoney[10],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box11.x,box11.y,79,40);
+        fill(255, 255, 255);
+        text(box11.mon,box11.x,box11.y+11,79,50);
+        total -= boxMoney[box11.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box12 = new Button ({
+    x: 298,
+    y: 133,
+    width: 117,
+    box:true,
+    NumBox: 12,
+    mon: boxMoney[11],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box12.x,box12.y,79,40);
+        fill(255, 255, 255);
+        text(box12.mon,box12.x,box12.y+11,79,50);
+        total -= boxMoney[box12.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box13 = new Button ({
+    x: 26,
+    y: 193,
+    width: 117,
+    box:true,
+    NumBox: 13,
+    mon: boxMoney[12],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box13.x,box13.y,79,40);
+        fill(255, 255, 255);
+        text(box13.mon,box13.x,box13.y+11,79,50);
+        total -= boxMoney[box13.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box14 = new Button ({
+    x: 117,
+    y: 193,
+    width: 117,
+    box:true,
+    NumBox: 14,
+    mon: boxMoney[13],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box14.x,box14.y,79,40);
+        fill(255, 255, 255);
+        text(box14.mon,box14.x,box14.y+11,79,50);
+        total -= boxMoney[box14.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box15 = new Button ({
+    x: 207,
+    y: 193,
+    width: 117,
+    box:true,
+    NumBox: 15,
+    mon: boxMoney[14],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box15.x,box15.y,79,40);
+        fill(255, 255, 255);
+        text(box15.mon,box15.x,box15.y+11,79,50);
+        total -= boxMoney[box15.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box16 = new Button ({
+    x: 298,
+    y: 193,
+    width: 117,
+    box:true,
+    NumBox: 16,
+    mon: boxMoney[15],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box16.x,box16.y,79,40);
+        fill(255, 255, 255);
+        text(box16.mon,box16.x,box16.y+11,79,50);
+        total -= boxMoney[box16.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box17 = new Button ({
+    x: 26,
+    y: 253,
+    width: 117,
+    box:true,
+    NumBox: 17,
+    mon: boxMoney[16],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box17.x,box17.y,79,40);
+        fill(255, 255, 255);
+        text(box17.mon,box17.x,box17.y+11,79,50);
+        total -= boxMoney[box17.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box18 = new Button ({
+    x: 117,
+    y: 253,
+    width: 117,
+    box:true,
+    NumBox: 18,
+    mon: boxMoney[17],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box18.x,box18.y,79,40);
+        fill(255, 255, 255);
+        text(box18.mon,box18.x,box18.y+11,79,50);
+        total -= boxMoney[box18.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box19 = new Button ({
+    x: 207,
+    y: 253,
+    width: 117,
+    box:true,
+    NumBox: 19,
+    mon: boxMoney[18],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box19.x,box19.y,79,40);
+        fill(255, 255, 255);
+        text(box19.mon,box19.x,box19.y+11,79,50);
+        total -= boxMoney[box19.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box20 = new Button ({
+    x: 298,
+    y: 253,
+    width: 117,
+    box:true,
+    NumBox: 20,
+    mon: boxMoney[19],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box20.x,box20.y,79,40);
+        fill(255, 255, 255);
+        text(box20.mon,box20.x,box20.y+11,79,50);
+        total -= boxMoney[box20.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box21 = new Button ({
+    x: 26,
+    y: 313,
+    width: 117,
+    box:true,
+    NumBox: 21,
+    mon: boxMoney[20],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box21.x,box21.y,79,40);
+        fill(255, 255, 255);
+        text(box21.mon,box21.x,box21.y+11,79,50);
+        total -= boxMoney[box21.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box22 = new Button ({
+    x: 117,
+    y: 313,
+    width: 117,
+    box:true,
+    NumBox: 22,
+    mon: boxMoney[21],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box22.x,box22.y,79,40);
+        fill(255, 255, 255);
+        text(box22.mon,box22.x,box22.y+11,79,50);
+        total -= boxMoney[box22.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box23 = new Button ({
+    x: 207,
+    y: 313,
+    width: 117,
+    box:true,
+    NumBox: 23,
+    mon: boxMoney[22],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box23.x,box23.y,79,40);
+        fill(255, 255, 255);
+        text(box23.mon,box23.x,box23.y+11,79,50);
+        total -= boxMoney[box23.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box24 = new Button ({
+    x: 298,
+    y: 313,
+    width: 117,
+    box:true,
+    NumBox: 24,
+    mon: boxMoney[23],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box24.x,box24.y,79,40);
+        fill(255, 255, 255);
+        text(box24.mon,box24.x,box24.y+11,79,50);
+        total -= boxMoney[box24.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+
+var box25 = new Button ({
+    x: 26,
+    y: 366,
+    width: 117,
+    box:true,
+    NumBox: 25,
+    mon: boxMoney[24],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box25.x,box25.y,79,40);
+        fill(255, 255, 255);
+        text(box25.mon,box25.x,box25.y+11,79,39);
+        total -= boxMoney[box25.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+var box26 = new Button ({
+    x: 117,
+    y: 366,
+    width: 117,
+    box:true,
+    NumBox: 26,
+    mon: boxMoney[25],
+    onClick: function() {
+        fill(0, 0, 0);
+        rect(box26.x,box26.y,79,40);
+        fill(255, 255, 255);
+        text(box26.mon,box26.x,box26.y+11,79,50);
+        total -= boxMoney[box26.NumBox-1];
+        score-=1;
+        
+    }
+});
+
+
+
 
 mouseClicked = function() {
     startGame.handleMouseClick();
     box1.handleMouseClick();
+    box2.handleMouseClick();
+    box3.handleMouseClick();
+    box4.handleMouseClick();
+    box5.handleMouseClick();
+    box6.handleMouseClick();
+    box7.handleMouseClick();
+    box8.handleMouseClick();
+    box9.handleMouseClick();
+    box10.handleMouseClick();
+    box11.handleMouseClick();
+    box12.handleMouseClick();
+    box13.handleMouseClick();
+    box14.handleMouseClick();
+    box15.handleMouseClick();
+    box16.handleMouseClick();
+    box17.handleMouseClick();
+    box18.handleMouseClick();
+    box19.handleMouseClick();
+    box20.handleMouseClick();
+    box21.handleMouseClick();
+    box22.handleMouseClick();
+    box23.handleMouseClick();
+    box24.handleMouseClick();
+    box25.handleMouseClick();
+    box26.handleMouseClick();
+
+
 };
 
+
+var main = function(){
+    background(0, 123, 255);
+    box1.draw();
+    box2.draw();
+    box3.draw();
+    box4.draw();
+    box5.draw();
+    box6.draw();
+    box7.draw();
+    box8.draw();
+    box9.draw();
+    box10.draw();
+    box11.draw();
+    box12.draw();
+    box13.draw();
+    box14.draw();
+    box15.draw();
+    box16.draw();
+    box17.draw();
+    box18.draw();
+    box19.draw();
+    box20.draw();
+    box21.draw();
+    box22.draw();
+    box23.draw();
+    box24.draw();
+    box25.draw();
+    box26.draw();
+};
+//main();
+
+var winningScreen = function(){
+    background(0, 149, 255);
+    textSize(26);
+    text("Congratulation you won $" + total ,8,88);
+    textSize(20);
+    text("Hope to see you in the CS feild one day! :)" ,8,153);
+    textSize(16);
+    text("but until then enjoy the money and thanks for playing!", 8, 224);
+    drawbitmoji(11,239,74);
+    strokeWeight(7);
+    stroke(255,255,255);
+    line(64,320,189,234);
+    noFill();
+    rect(8,54,385,178);
+
+};
+//winningScreen();
+
+var banker = function(){
+
+    background(0, 0, 0);
+    textSize(24);
+    fill(255, 208, 0);
+    var bank = [];
+    var j = 0;
+    for (var i = 5; i > 0; i--){
+        bank.push(round(total/i));
+    }
+/*
+    println(total);
+    println(bank[0]);
+    println(bank[1]);
+    println(bank[2]);
+    println(bank[3]);
+    println(bank[4]);
+*/
+    
+    var deal = new Button ({
+    x: 65,
+    y: 300,
+    color: color(255, 208, 0),
+    label: "Deal",
+    width: 95,
+    onClick: function() {
+        currentScene = 3;
+        total = bank[j];
+    }
+});
+
+
+    text("The Banker wants to make and offer",2,49); 
+    text("The offer is $" + round(bank[j]),87,132);  
+    deal.draw();
+    noDeal.draw();
+    drawBitmoji(26,149,60);
+    strokeWeight(5);
+    stroke(255, 255, 255);
+    line(85,228,186,150);
+    noFill();
+    rect(81,99,230,50);
+    if (shifter === 1)
+    {
+        j += 1;
+        shifter = 0;
+    }
+    else
+    {
+        total = bank[j];
+    }
+    
+    
+};
+banker();
+
+draw = function() {
+    fill(255, 255, 255);
+    rect(240,368,152,33);
+    fill(0, 0, 0);
+textSize(15);
+text("Boxes Eliminated: " + score, 250, 380);
+if (currentScene === 0) {
+        animate++;
+        vicMoves = vicMoves +2;
+        drewMoves = drewMoves -2;
+        background(117, 178, 221);
+        textSize(37);
+        fill(0 + animate, 0 + animate, 0 + animate);
+        text("DEAL OR NO DEAL?", 20, 30);
+        drawBitmoji(-110 +vicMoves,70,69);
+        drawbitmoji(350 +drewMoves,65,78);
+        startGame.draw();
+        startBox.draw();
+        startBox.x = startBox.x +3;
+        if (startBox.x > 420) {
+            startBox.x =-90;
+        }
+        if (animate > 200) {
+            animate = 0;
+        }
+        if (vicMoves >500) {
+            vicMoves = 0;
+            drawBitmoji(-110 +vicMoves,70,69);
+        }
+        if (drewMoves <-500) {
+            drewMoves = 0;
+            drawbitmoji(350 +drewMoves,65,78);
+
+        }
+    }
+    else if (currentScene === 1) {
+        main();
+    }
+};
